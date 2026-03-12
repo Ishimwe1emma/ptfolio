@@ -425,29 +425,43 @@ h1.hero-name span{
   animation:fadeUp .55s .5s ease both;
 }
 
-/* Hero Card (Profile Card) */
+/* Hero Card (Profile Card) - TRANSPARENT VERSION */
 .hero-card{
-  background:var(--surface);
-  border:1px solid var(--line);
+  background: transparent !important; /* Make background transparent */
+  backdrop-filter: blur(8px);         /* Add blur effect to see background through */
+  -webkit-backdrop-filter: blur(8px); /* For Safari support */
+  border: 1px solid rgba(255,255,255,0.15); /* Lighter border for glass effect */
   border-radius:22px;
   padding:1.75rem;
-  box-shadow:var(--shadow);
+  box-shadow:0 8px 32px rgba(0,0,0,0.1); /* Softer shadow for transparent card */
 }
 
-/* Avatar in Hero Card */
+/* Avatar in Hero Card - WITH IMAGE */
 .hero-avatar{
   width:72px;
   height:72px;
   border-radius:50%;
-  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  /* Replace the gradient with your image */
+  background-image: url('p.photo.jpeg'); /* REPLACE THIS URL WITH YOUR ACTUAL IMAGE */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Hide the text content */
+  color: transparent;
+  text-indent: -9999px;
+  overflow: hidden;
   display:flex;
   align-items:center;
   justify-content:center;
   font-family:'Fraunces',serif;
   font-size:1.7rem;
   font-weight:700;
-  color:#fff;
   margin-bottom:1.25rem;
+}
+
+/* For dark theme - adjust border color */
+[data-theme="dark"] .hero-card {
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* Name in Hero Card */
@@ -502,25 +516,91 @@ h1.hero-name span{
   margin-top:1.25rem;
 }
 
-/* Individual Stat Item */
+/* Individual Stat Item - WITH BACKGROUND IMAGE AND GRADIENT OVERLAY */
 .stat{
-  background:var(--bg);
+  /* Background image with gradient overlay */
+  background: linear-gradient(180deg, 
+    rgba(29, 92, 142, 0.7) 0%,    /* Darker blue at top */
+    rgba(45, 138, 110, 0.3) 100%   /* Lighter green at bottom */
+  ), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'); /* Medical background image */
+  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay; /* Blends gradient with image */
+  opacity: 0.8;
+
+  
   border-radius:12px;
   padding:.9rem;
   text-align:center;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+  
+
+ 
 }
+
+/* Add a subtle overlay on hover */
+.stat:hover {
+  background: linear-gradient(180deg, 
+    rgba(29, 92, 142, 0.8) 0%,
+    rgba(45, 138, 110, 0.4) 100%
+  ), url('photo.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
 .stat-num{
   font-family:'Fraunces',serif;
   font-size:1.7rem;
   font-weight:700;
-  color:var(--accent);
+  color:rgb(245, 245, 245); /* White text to stand out against image */
   display:block;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 2;
 }
+
 .stat-label{
   font-size:.7rem;
-  color:var(--muted);
+  color:white; /* White text to stand out against image */
   text-transform:uppercase;
   letter-spacing:.05em;
+  font-weight: 600;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .stat {
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(74, 159, 212, 0.4) 100%
+  ), url('p.photo.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+[data-theme="dark"] .stat:hover {
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(74, 159, 212, 0.5) 100%
+  ), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
 }
 
 /* ======================================== */
@@ -622,33 +702,30 @@ section{
 
 /* About Picture/Placeholder */
 .about-pic{
+  background-image: url("photo.jpeg");
+  background-size: cover;          /* Makes image fill the container */
+  background-position: center;     /* Centers the image */
+  background-repeat: no-repeat;    /* Prevents repeating */
+
   width:100%;
-  aspect-ratio:4/5;          /* Maintains 4:5 ratio */
-  background:linear-gradient(135deg, var(--accent) 20%, var(--accent2) 80%);
+  height:100%;
+  aspect-ratio:4/5;                /* Maintains 4:5 ratio */
+
   border-radius:20px;
   display:flex;
-  align-items:center;
+  align-items:top;
   justify-content:center;
-  font-family:'Fraunces',serif;
+
+  font-family:'Fraunces', serif;
   font-size:4.5rem;
   color:rgba(255,255,255,.55);
+
   margin-bottom:1.25rem;
   position:relative;
   overflow:hidden;
 }
-/* Diagonal line pattern overlay */
-.about-pic::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    rgba(255,255,255,.04) 10px,
-    rgba(255,255,255,.04) 20px
-  );
-}
+
+
 
 /* About Info Card (Contact Details) */
 .about-info-card{
@@ -1599,7 +1676,6 @@ footer{
 </head>
 <body>
 
-<!-- Rest of your HTML remains EXACTLY the same -->
 <nav>
   <a class="nav-logo" href="#home">EI<span style="color:var(--accent2)">.</span></a>
   <ul class="nav-links">
@@ -1954,7 +2030,6 @@ footer{
 
 <button class="go-top" id="goTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 
-<!-- JavaScript (Unchanged) -->
 <script>
 /* THEME */
 function toggleTheme(){
